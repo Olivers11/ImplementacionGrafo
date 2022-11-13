@@ -15,7 +15,7 @@ namespace ImplementacionGrafo
             linea = linea.Replace("}", "");
             linea = linea.Replace("{", "");
             string[] lines = linea.Split(';');
-            for(int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < lines.Length; i++)
             {
                 string l = lines[i].Replace("(", "");
                 l = l.Replace(")", "");
@@ -40,7 +40,15 @@ namespace ImplementacionGrafo
             //grafo.contarEscalas(grafo.getVertice(2), "a");
             grafo.contarHijos(grafo.getVertice(2), "a");
             grafo.printPosiciones(2);
+            grafo.clearComponents();
             //Console.WriteLine("Caminos de e en (1): " + grafo.aux_cont);
+            for (int i = 1; i < grafo.v.Count; i++)
+            {
+                Console.WriteLine("recorriendo: " + i);
+                grafo.contarHijos(grafo.getVertice(i), "e");
+                //grafo.printPosiciones(i);
+                grafo.clearComponents();
+            }
             Console.ReadKey();
         }
     }

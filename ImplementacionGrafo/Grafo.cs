@@ -44,6 +44,11 @@ namespace implementacionGrafo
             ver_padre.Aristas.Add(ver);
         }
 
+        public void clearComponents()
+        {
+            this.recorridos = new List<int>();
+            this.recorridos_2 = new List<int>();
+        }
         public void recorrer(Vertice ver)
         {
             if (ver != null)
@@ -90,7 +95,7 @@ namespace implementacionGrafo
                 {
                     foreach (int i in conjunto.posiciones)
                     {
-                        Console.WriteLine(i);
+                        Console.WriteLine("item: " + i);
                     }
                 }
             }
@@ -102,6 +107,7 @@ namespace implementacionGrafo
         {
             this.conjuntos.Add(new Conjunto(ver.valor));
             this.contarEscalas(ver, referencia);
+            aux_cont = 0;
         }
 
         public int aux_cont = 0;

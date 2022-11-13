@@ -9,9 +9,24 @@ namespace ImplementacionGrafo
 {
     public class Program
     {
+
+        public static void interpretarLinea(string linea)
+        {
+            linea = linea.Replace("}", "");
+            linea = linea.Replace("{", "");
+            string[] lines = linea.Split(';');
+            for(int i = 0; i < lines.Length; i++)
+            {
+                string l = lines[i].Replace("(", "");
+                l = l.Replace(")", "");
+                Console.WriteLine(l);
+                string[] internas = l.Split(',');
+            }
+        }
         static void Main(string[] args)
         {
-            Grafo grafo = new Grafo();
+            interpretarLinea("{(1,a,1);(1,e,2);(2,a,3);(2,e,4);(3,b,2);(4,a,4)}");
+            /*Grafo grafo = new Grafo();
             grafo.addVertice(1);
             grafo.addVertice(2);
             grafo.addVertice(3);
@@ -24,8 +39,8 @@ namespace ImplementacionGrafo
             grafo.recorrer(grafo.getVertice(1));
             grafo.contarEscalas(grafo.getVertice(1), "a");
             Console.WriteLine("Caminos de a en (1): " + grafo.aux_cont);
+            */
             Console.ReadKey();
-
         }
     }
 }

@@ -11,10 +11,12 @@ namespace implementacionGrafo
     {
         public List<Vertice> v;
         public List<Conjunto> conjuntos;
+        public List<Matriz> matriz;
         public Grafo()
         {
             this.v = new List<Vertice>();
             this.conjuntos = new List<Conjunto>();
+            this.matriz = new List<Matriz>();
         }
 
         public void addVertice(int valor)
@@ -33,6 +35,7 @@ namespace implementacionGrafo
             }
             return null;
         }
+
 
         public void referenciarVertice(string origen, int valor, int padre)
         {
@@ -96,7 +99,7 @@ namespace implementacionGrafo
                 {
                     foreach (int i in conjunto.posiciones)
                     {
-                        Console.WriteLine("item: " + i + " " +  this.verificarOrigen(Convert.ToInt32(i), "e"));
+                        Console.WriteLine("item: " + i + " " + this.verificarOrigen(Convert.ToInt32(i), "e"));
                     }
                 }
             }
@@ -130,7 +133,7 @@ namespace implementacionGrafo
                             if (!vr._checked) aux_cont += this.contarPadres(vr.origen, referencia);
                             vr._checked = true;
                             //Console.WriteLine("referencia usada: " + referencia_iterador);
-                            if(this.verificarOrigen(vr.valor, referencia))this.agregarConjunto(vr.valor, referencia_iterador);
+                            if (this.verificarOrigen(vr.valor, referencia)) this.agregarConjunto(vr.valor, referencia_iterador);
                             this.contarEscalas(vr, referencia);
                         }
                     }
@@ -141,25 +144,25 @@ namespace implementacionGrafo
 
         public bool esPadre(Vertice reference, int child)
         {
-            foreach(Vertice ver in reference.Aristas)
+            foreach (Vertice ver in reference.Aristas)
             {
                 if (ver.valor == child) return true;
             }
             return false;
         }
 
-        public bool  verificarOrigen(int pos, string origen)
+        public bool verificarOrigen(int pos, string origen)
         {
             Vertice ver = this.getVertice(pos);
-            if(this.esPadre(ver, referencia_iterador))
+            if (this.esPadre(ver, referencia_iterador))
             {
-                for(int i = 1; i < ver.Aristas.Count; i++)
+                for (int i = 1; i < ver.Aristas.Count; i++)
                 {
                     if (ver.origen[i] == origen) return true;
                 }
                 return false;
             }
-            foreach(string or in ver.origen)
+            foreach (string or in ver.origen)
             {
                 if (or.Equals(origen)) return true;
             }
@@ -191,10 +194,10 @@ namespace implementacionGrafo
 
         public void printVertices()
         {
-            foreach(Vertice ver in this.v)
+            foreach (Vertice ver in this.v)
             {
                 Console.WriteLine("Vert: " + ver.valor);
-                foreach(Vertice vr in ver.Aristas)
+                foreach (Vertice vr in ver.Aristas)
                 {
                     Console.WriteLine("Aris: " + vr.valor);
                 }
@@ -202,6 +205,24 @@ namespace implementacionGrafo
         }
 
 
+        public void llenarMatriz()
+        {
+            for (int i = 0; i < this.v.Count; i++)
+            {
+                List<int> arr1 = new List<int>{ this.v[i].valor };
+                List<List<int>> arr2 = new List<List<int>>(3);
+                arr2.Add(arr1);
+                this.matriz.Add(new Matriz(arr2));
+            }
+        }
+
+        public void printMatriz()
+        {
+            for (int i = 0; i < this.matriz.Count; i++)
+            {
+                Console.WriteLine(this.matriz[i].valores[0][0]);
+            }
+        }
 
     }
 }

@@ -34,9 +34,9 @@ namespace implementacionGrafo
         public void referenciarVertice(string origen, int valor, int padre)
         {
             Vertice ver = this.getVertice(valor);
-            Console.WriteLine("vertice hijo: " + ver.valor);
+            //Console.WriteLine("vertice hijo: " + ver.valor);
             Vertice ver_padre = this.getVertice(padre);
-            Console.WriteLine("vertice padre: " + ver_padre.valor);
+            //Console.WriteLine("vertice padre: " + ver_padre.valor);
             ver.origen.Add(origen);
             ver_padre.Aristas.Add(ver);
         }
@@ -47,10 +47,6 @@ namespace implementacionGrafo
             {
                 if (!this.fueRecorrido(ver.valor, recorridos))
                 {
-                    foreach (string str in ver.origen)
-                    {
-                        Console.WriteLine(ver.valor + " - " + str);
-                    }
                     recorridos.Add(ver.valor);
                     foreach (Vertice vr in ver.Aristas)
                     {
@@ -100,7 +96,6 @@ namespace implementacionGrafo
             int cont = 0;
             foreach(string s in origenes)
             {
-                Console.WriteLine(s);
                 if(s == referencia)
                 {
                     cont++;

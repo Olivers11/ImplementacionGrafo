@@ -19,7 +19,7 @@ namespace ImplementacionGrafo
             {
                 string l = lines[i].Replace("(", "");
                 l = l.Replace(")", "");
-                Console.WriteLine(l);
+                //Console.WriteLine(l);
                 string[] internas = l.Split(',');
                 grafo.referenciarVertice(internas[1], Convert.ToInt32(internas[2]), Convert.ToInt32(internas[0]));
             }

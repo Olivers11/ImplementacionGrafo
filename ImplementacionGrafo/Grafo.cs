@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ImplementacionGrafo;
 
 namespace implementacionGrafo
 {
     public class Grafo
     {
         public List<Vertice> v;
+        public List<Conjunto> conjuntos;
         public Grafo()
         {
             this.v = new List<Vertice>();
@@ -47,6 +49,7 @@ namespace implementacionGrafo
             {
                 if (!this.fueRecorrido(ver.valor, recorridos))
                 {
+                    Console.WriteLine(ver.valor);
                     recorridos.Add(ver.valor);
                     foreach (Vertice vr in ver.Aristas)
                     {

@@ -81,7 +81,6 @@ namespace implementacionGrafo
                 {
                     foreach (string str in ver.origen)
                     {
-                        Console.WriteLine("ref: " + referencia + "  " + str);
                         if(str == referencia)
                         {
                             aux_cont++;
@@ -90,12 +89,21 @@ namespace implementacionGrafo
                     recorridos_2.Add(ver.valor);
                     foreach (Vertice vr in ver.Aristas)
                     {
-                        this.contarEscalas(vr,referencia);
+                        if (this.podemosIr(vr.origen, referencia))
+                        {
+                            this.contarEscalas(vr, referencia);
+                        }
                     }
                 }
 
             }
         }
+
+        public bool podemosIr(List<string> origenes, string referencia)
+        {
+            return origenes.Contains(referencia);
+        }
+
 
     }
 }

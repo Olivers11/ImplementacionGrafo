@@ -10,7 +10,7 @@ namespace ImplementacionGrafo
     public class Program
     {
 
-        public static void interpretarLinea(string linea)
+        public static void interpretarLinea(string linea, ref Grafo grafo)
         {
             linea = linea.Replace("}", "");
             linea = linea.Replace("{", "");
@@ -21,25 +21,25 @@ namespace ImplementacionGrafo
                 l = l.Replace(")", "");
                 Console.WriteLine(l);
                 string[] internas = l.Split(',');
+                grafo.referenciarVertice(internas[1], Convert.ToInt32(internas[2]), Convert.ToInt32(internas[0]));
             }
         }
         static void Main(string[] args)
         {
-            interpretarLinea("{(1,a,1);(1,e,2);(2,a,3);(2,e,4);(3,b,2);(4,a,4)}");
-            /*Grafo grafo = new Grafo();
+            Grafo grafo = new Grafo();
             grafo.addVertice(1);
             grafo.addVertice(2);
             grafo.addVertice(3);
             grafo.addVertice(4);
-            Console.WriteLine("comenzaremos a referenciar");
-            grafo.referenciarVertice("a", 2, 1);
+            interpretarLinea("{(1,a,1);(1,e,2);(2,a,3);(2,e,4);(3,b,2);(1,e,4)}", ref grafo);
+            /*grafo.referenciarVertice("a", 2, 1);
             grafo.referenciarVertice("a", 3, 2);
             grafo.referenciarVertice("b", 3, 1);
-            grafo.referenciarVertice("a", 4, 3);
+            grafo.referenciarVertice("a", 4, 3);*/
             grafo.recorrer(grafo.getVertice(1));
-            grafo.contarEscalas(grafo.getVertice(1), "a");
-            Console.WriteLine("Caminos de a en (1): " + grafo.aux_cont);
-            */
+            grafo.contarEscalas(grafo.getVertice(1), "e");
+            grafo.aux_cont--;
+            Console.WriteLine("Caminos de e en (1): " + grafo.aux_cont);
             Console.ReadKey();
         }
     }

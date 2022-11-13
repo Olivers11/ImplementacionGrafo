@@ -36,17 +36,17 @@ namespace ImplementacionGrafo
             grafo.referenciarVertice("a", 3, 2);
             grafo.referenciarVertice("b", 3, 1);
             grafo.referenciarVertice("a", 4, 3);*/
-            grafo.recorrer(grafo.getVertice(2));
+            //grafo.recorrer(grafo.getVertice(2));
             //grafo.contarEscalas(grafo.getVertice(2), "a");
-            grafo.contarHijos(grafo.getVertice(2), "a");
-            grafo.printPosiciones(2);
-            grafo.clearComponents();
+            //grafo.contarHijos(grafo.getVertice(2), "a");
+            //grafo.printPosiciones(2);
+            //grafo.clearComponents();
             //Console.WriteLine("Caminos de e en (1): " + grafo.aux_cont);
             for (int i = 1; i < grafo.v.Count; i++)
             {
                 Console.WriteLine("recorriendo: " + i);
                 grafo.contarHijos(grafo.getVertice(i), "e");
-                //grafo.printPosiciones(i);
+                grafo.printPosiciones(i);
                 grafo.clearComponents();
             }
             Console.ReadKey();

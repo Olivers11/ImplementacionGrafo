@@ -37,9 +37,9 @@ namespace implementacionGrafo
         public void referenciarVertice(string origen, int valor, int padre)
         {
             Vertice ver = this.getVertice(valor);
-            //Console.WriteLine("vertice hijo: " + ver.valor);
+            Console.WriteLine("vertice hijo: " + ver.valor);
             Vertice ver_padre = this.getVertice(padre);
-            //Console.WriteLine("vertice padre: " + ver_padre.valor);
+            Console.WriteLine("vertice padre: " + ver_padre.valor);
             ver.origen.Add(origen);
             ver_padre.Aristas.Add(ver);
         }
@@ -48,6 +48,7 @@ namespace implementacionGrafo
         {
             this.recorridos = new List<int>();
             this.recorridos_2 = new List<int>();
+            this.referencia_iterador = 0;
         }
         public void recorrer(Vertice ver)
         {
@@ -105,10 +106,12 @@ namespace implementacionGrafo
 
         public void contarHijos(Vertice ver, string referencia)
         {
+            this.referencia_iterador = ver.valor;
             this.conjuntos.Add(new Conjunto(ver.valor));
             this.contarEscalas(ver, referencia);
             aux_cont = 0;
         }
+        public int referencia_iterador = 0;
 
         public int aux_cont = 0;
         public List<int> recorridos_2 = new List<int>();
@@ -123,16 +126,28 @@ namespace implementacionGrafo
                     {
                         if (this.podemosIr(vr.origen, referencia))
                         {
-                            Console.WriteLine("Contando: " + vr.valor);
+                            //Console.WriteLine("Contando: " + vr.valor);
                             if (!vr._checked) aux_cont += this.contarPadres(vr.origen, referencia);
                             vr._checked = true;
-                            this.agregarConjunto(vr.valor, ver.valor);
+                            //Console.WriteLine("referencia usada: " + referencia_iterador);
+                            if(this.verificarOrigen(vr.valor, referencia))this.agregarConjunto(vr.valor, referencia_iterador);
                             this.contarEscalas(vr, referencia);
                         }
                     }
                 }
 
             }
+        }
+
+
+        public bool  verificarOrigen(int pos, string origen)
+        {
+            Vertice ver = this.getVertice(pos);
+            foreach(string or in ver.origen)
+            {
+                if (or.Equals(origen)) return true;
+            }
+            return false;
         }
 
         public int contarPadres(List<string> origenes, string referencia)

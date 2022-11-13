@@ -37,9 +37,7 @@ namespace implementacionGrafo
         public void referenciarVertice(string origen, int valor, int padre)
         {
             Vertice ver = this.getVertice(valor);
-            Console.WriteLine("vertice hijo: " + ver.valor);
             Vertice ver_padre = this.getVertice(padre);
-            Console.WriteLine("vertice padre: " + ver_padre.valor);
             ver.origen.Add(origen);
             ver_padre.Aristas.Add(ver);
         }
@@ -88,15 +86,17 @@ namespace implementacionGrafo
             }
         }
 
+
         public void printPosiciones(int valor_ref)
         {
             foreach (Conjunto conjunto in this.conjuntos)
             {
+                conjunto.posiciones = conjunto.posiciones.Distinct().ToList();
                 if (conjunto.index == valor_ref)
                 {
                     foreach (int i in conjunto.posiciones)
                     {
-                        Console.WriteLine("item: " + i);
+                        Console.WriteLine("item: " + i + " " +  this.verificarOrigen(Convert.ToInt32(i), "e"));
                     }
                 }
             }
@@ -139,15 +139,36 @@ namespace implementacionGrafo
             }
         }
 
+        public bool esPadre(Vertice reference, int child)
+        {
+            foreach(Vertice ver in reference.Aristas)
+            {
+                if (ver.valor == child) return true;
+            }
+            return false;
+        }
 
         public bool  verificarOrigen(int pos, string origen)
         {
             Vertice ver = this.getVertice(pos);
+            if(this.esPadre(ver, referencia_iterador))
+            {
+                for(int i = 1; i < ver.Aristas.Count; i++)
+                {
+                    if (ver.origen[i] == origen) return true;
+                }
+                return false;
+            }
             foreach(string or in ver.origen)
             {
                 if (or.Equals(origen)) return true;
             }
             return false;
+        }
+
+        public bool verificarPosicion()
+        {
+            return true;
         }
 
         public int contarPadres(List<string> origenes, string referencia)
@@ -167,6 +188,19 @@ namespace implementacionGrafo
         {
             return origenes.Contains(referencia);
         }
+
+        public void printVertices()
+        {
+            foreach(Vertice ver in this.v)
+            {
+                Console.WriteLine("Vert: " + ver.valor);
+                foreach(Vertice vr in ver.Aristas)
+                {
+                    Console.WriteLine("Aris: " + vr.valor);
+                }
+            }
+        }
+
 
 
     }

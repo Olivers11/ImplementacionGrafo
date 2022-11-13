@@ -1,0 +1,8 @@
+C:\Users\olste\OneDrive\Escritorio\Development\C#\ImplementacionGrafo\ImplementacionGrafo\bin\Release\ImplementacionGrafo.exe.config
+C:\Users\olste\OneDrive\Escritorio\Development\C#\ImplementacionGrafo\ImplementacionGrafo\bin\Release\ImplementacionGrafo.exe
+C:\Users\olste\OneDrive\Escritorio\Development\C#\ImplementacionGrafo\ImplementacionGrafo\bin\Release\ImplementacionGrafo.pdb
+C:\Users\olste\OneDrive\Escritorio\Development\C#\ImplementacionGrafo\ImplementacionGrafo\obj\Release\ImplementacionGrafo.csproj.AssemblyReference.cache
+C:\Users\olste\OneDrive\Escritorio\Development\C#\ImplementacionGrafo\ImplementacionGrafo\obj\Release\ImplementacionGrafo.csproj.SuggestedBindingRedirects.cache
+C:\Users\olste\OneDrive\Escritorio\Development\C#\ImplementacionGrafo\ImplementacionGrafo\obj\Release\ImplementacionGrafo.csproj.CoreCompileInputs.cache
+C:\Users\olste\OneDrive\Escritorio\Development\C#\ImplementacionGrafo\ImplementacionGrafo\obj\Release\ImplementacionGrafo.exe
+C:\Users\olste\OneDrive\Escritorio\Development\C#\ImplementacionGrafo\ImplementacionGrafo\obj\Release\ImplementacionGrafo.pdb

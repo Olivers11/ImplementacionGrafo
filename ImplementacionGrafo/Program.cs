@@ -37,8 +37,10 @@ namespace ImplementacionGrafo
             grafo.referenciarVertice("b", 3, 1);
             grafo.referenciarVertice("a", 4, 3);*/
             grafo.recorrer(grafo.getVertice(2));
-            grafo.contarEscalas(grafo.getVertice(2), "a");
-            Console.WriteLine("Caminos de e en (1): " + grafo.aux_cont);
+            //grafo.contarEscalas(grafo.getVertice(2), "a");
+            grafo.contarHijos(grafo.getVertice(2), "a");
+            grafo.printPosiciones(2);
+            //Console.WriteLine("Caminos de e en (1): " + grafo.aux_cont);
             Console.ReadKey();
         }
     }

@@ -14,6 +14,7 @@ namespace implementacionGrafo
         public Grafo()
         {
             this.v = new List<Vertice>();
+            this.conjuntos = new List<Conjunto>();
         }
 
         public void addVertice(int valor)
@@ -70,6 +71,39 @@ namespace implementacionGrafo
             return false;
         }
 
+        public void agregarConjunto(int num, int valor_ref)
+        {
+            foreach (Conjunto conjunto in this.conjuntos)
+            {
+                if (conjunto.index == valor_ref)
+                {
+                    conjunto.posiciones.Add(num);
+                }
+            }
+        }
+
+        public void printPosiciones(int valor_ref)
+        {
+            foreach (Conjunto conjunto in this.conjuntos)
+            {
+                if (conjunto.index == valor_ref)
+                {
+                    foreach (int i in conjunto.posiciones)
+                    {
+                        Console.WriteLine(i);
+                    }
+                }
+            }
+            Console.WriteLine("");
+        }
+
+
+        public void contarHijos(Vertice ver, string referencia)
+        {
+            this.conjuntos.Add(new Conjunto(ver.valor));
+            this.contarEscalas(ver, referencia);
+        }
+
         public int aux_cont = 0;
         public List<int> recorridos_2 = new List<int>();
         public void contarEscalas(Vertice ver, string referencia)
@@ -84,8 +118,9 @@ namespace implementacionGrafo
                         if (this.podemosIr(vr.origen, referencia))
                         {
                             Console.WriteLine("Contando: " + vr.valor);
-                            if(!vr._checked)aux_cont+= this.contarPadres(vr.origen, referencia);
+                            if (!vr._checked) aux_cont += this.contarPadres(vr.origen, referencia);
                             vr._checked = true;
+                            this.agregarConjunto(vr.valor, ver.valor);
                             this.contarEscalas(vr, referencia);
                         }
                     }
@@ -97,9 +132,9 @@ namespace implementacionGrafo
         public int contarPadres(List<string> origenes, string referencia)
         {
             int cont = 0;
-            foreach(string s in origenes)
+            foreach (string s in origenes)
             {
-                if(s == referencia)
+                if (s == referencia)
                 {
                     cont++;
                 }

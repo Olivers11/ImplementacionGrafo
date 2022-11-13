@@ -11,9 +11,11 @@ namespace implementacionGrafo
         public int valor;
         public List<string> origen;
         public List<Vertice> Aristas;
+        public bool _checked;
         public Vertice(int valor)
         {
             this.valor = valor;
+            this._checked = false;
             this.origen = new List<string>();
             this.Aristas = new List<Vertice>();
         }

@@ -79,24 +79,34 @@ namespace implementacionGrafo
             {
                 if (!this.fueRecorrido(ver.valor, recorridos_2))
                 {
-                    foreach (string str in ver.origen)
-                    {
-                        if(str == referencia)
-                        {
-                            aux_cont++;
-                        }
-                    }
                     recorridos_2.Add(ver.valor);
                     foreach (Vertice vr in ver.Aristas)
                     {
                         if (this.podemosIr(vr.origen, referencia))
                         {
+                            Console.WriteLine("Contando: " + vr.valor);
+                            if(!vr._checked)aux_cont+= this.contarPadres(vr.origen, referencia);
+                            vr._checked = true;
                             this.contarEscalas(vr, referencia);
                         }
                     }
                 }
 
             }
+        }
+
+        public int contarPadres(List<string> origenes, string referencia)
+        {
+            int cont = 0;
+            foreach(string s in origenes)
+            {
+                Console.WriteLine(s);
+                if(s == referencia)
+                {
+                    cont++;
+                }
+            }
+            return cont;
         }
 
         public bool podemosIr(List<string> origenes, string referencia)

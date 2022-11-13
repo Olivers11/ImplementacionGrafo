@@ -89,6 +89,18 @@ namespace implementacionGrafo
             }
         }
 
+        public List<int> obtenerPosiciones(int valor_ref)
+        {
+            foreach (Conjunto conjunto in this.conjuntos)
+            {
+                conjunto.posiciones = conjunto.posiciones.Distinct().ToList();
+                if (conjunto.index == valor_ref)
+                {
+                    return conjunto.posiciones;
+                }
+            }
+            return null;
+        }
 
         public void printPosiciones(int valor_ref)
         {
@@ -129,10 +141,8 @@ namespace implementacionGrafo
                     {
                         if (this.podemosIr(vr.origen, referencia))
                         {
-                            //Console.WriteLine("Contando: " + vr.valor);
                             if (!vr._checked) aux_cont += this.contarPadres(vr.origen, referencia);
                             vr._checked = true;
-                            //Console.WriteLine("referencia usada: " + referencia_iterador);
                             if (this.verificarOrigen(vr.valor, referencia)) this.agregarConjunto(vr.valor, referencia_iterador);
                             this.contarEscalas(vr, referencia);
                         }
@@ -169,10 +179,7 @@ namespace implementacionGrafo
             return false;
         }
 
-        public bool verificarPosicion()
-        {
-            return true;
-        }
+        
 
         public int contarPadres(List<string> origenes, string referencia)
         {
@@ -209,9 +216,10 @@ namespace implementacionGrafo
         {
             for (int i = 0; i < this.v.Count; i++)
             {
-                List<int> arr1 = new List<int>{ this.v[i].valor };
+                List<int> arr1 = new List<int> { this.v[i].valor };
                 List<List<int>> arr2 = new List<List<int>>(3);
                 arr2.Add(arr1);
+                arr2.Add(this.obtenerPosiciones(this.v[i].valor));
                 this.matriz.Add(new Matriz(arr2));
             }
         }

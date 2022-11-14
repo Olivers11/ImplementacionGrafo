@@ -111,7 +111,7 @@ namespace implementacionGrafo
                 {
                     foreach (int i in conjunto.posiciones)
                     {
-                        Console.WriteLine("item: " + i + " " + this.verificarOrigen(Convert.ToInt32(i), "e"));
+                        Console.WriteLine("item: " + i);
                     }
                 }
             }
@@ -179,7 +179,7 @@ namespace implementacionGrafo
             return false;
         }
 
-        
+
 
         public int contarPadres(List<string> origenes, string referencia)
         {
@@ -214,21 +214,26 @@ namespace implementacionGrafo
 
         public void llenarMatriz()
         {
-            for (int i = 0; i < this.v.Count; i++)
+            for (int i = 1; i < this.v.Count; i++)
             {
-                List<int> arr1 = new List<int> { this.v[i].valor };
-                List<List<int>> arr2 = new List<List<int>>(3);
-                arr2.Add(arr1);
-                arr2.Add(this.obtenerPosiciones(this.v[i].valor));
-                this.matriz.Add(new Matriz(arr2));
+                Console.WriteLine("recorriendo: " + i);
+                this.contarHijos(this.getVertice(i), "b");
+                this.printPosiciones(i);
+                this.clearComponents();
             }
+            /*Console.WriteLine("recorriendo: " + 4);
+            this.contarHijos(this.getVertice(4), "a");
+            this.printPosiciones(4);
+            this.clearComponents();*/
+
         }
 
         public void printMatriz()
         {
             for (int i = 0; i < this.matriz.Count; i++)
             {
-                Console.WriteLine(this.matriz[i].valores[0][0]);
+                this.matriz[i].printMatriz();
+                Console.WriteLine("");
             }
         }
 

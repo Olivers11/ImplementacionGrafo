@@ -23,7 +23,7 @@ namespace ImplementacionGrafo
             {
                 foreach (int val in valores[i])
                 {
-                    Console.WriteLine(val);
+                    Console.Write("("+ val +")");
                 }
             }
         }

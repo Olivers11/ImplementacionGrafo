@@ -24,7 +24,7 @@ namespace implementacionGrafo
 
         public Vertice getVertice(int val)
         {
-            foreach(Vertice ver in this.v)
+            foreach (Vertice ver in this.v)
             {
                 if (ver.valor == val) return ver;
             }
@@ -38,13 +38,38 @@ namespace implementacionGrafo
             vertice_p.Aristas.Add(vertice_h);
         }
 
+        public void printArr()
+        {
+            foreach (Vertice ver in this.v)
+            {
+                Console.WriteLine("Vertice: " + ver.valor);
+                foreach (Vertice vr in ver.Aristas)
+                {
+                    Console.WriteLine("ari: " + vr.valor);
+                }
+            }
+        }
+
+        public int getPos(int valor)
+        {
+            for (int i = 0; i < this.v.Count; i++)
+            {
+                if (this.v[i].valor == valor) return i;
+            }
+            return -1;
+        }
+
         public void print(Vertice vertice)
         {
-            if(vertice != null)
+            Console.WriteLine("Vertice: " + vertice.valor);
+            int cont = 0;
+            foreach (Vertice ver in vertice.Aristas)
             {
-                Console.WriteLine("Vertice: " + vertice.valor);
-                foreach(Vertice ver in vertice.Aristas)
+                Console.WriteLine("ari: " + ver.valor);
+                if (!ver.isChecked())
                 {
+                    ver.checkearArista(cont);
+                    cont++;
                     this.print(ver);
                 }
             }

@@ -58,6 +58,14 @@ namespace implementacionGrafo
             }
             return -1;
         }
+        public bool esOrigen(string letra, Vertice ver, int valor)
+        {
+            foreach(Origen or in ver.origenes)
+            {
+                if (or.padre == valor && or.origen == letra) return true;
+            }
+            return false;
+        }
 
         public void print(Vertice vertice)
         {
@@ -65,7 +73,7 @@ namespace implementacionGrafo
             int cont = 0;
             foreach (Vertice ver in vertice.Aristas)
             {
-                Console.WriteLine("ari: " + ver.valor);
+                if(this.esOrigen("e", vertice, ver.valor))Console.WriteLine("ari: " + ver.valor + " --origen: " + ver.origenes);
                 if (!ver.isChecked())
                 {
                     ver.checkearArista(cont);

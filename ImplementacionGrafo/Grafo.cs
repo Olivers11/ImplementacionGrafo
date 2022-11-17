@@ -60,20 +60,31 @@ namespace implementacionGrafo
         }
         public bool esOrigen(string letra, Vertice ver, int valor)
         {
-            foreach(Origen or in ver.origenes)
+            foreach (Origen or in ver.origenes)
             {
                 if (or.padre == valor && or.origen == letra) return true;
             }
             return false;
         }
 
+        public void printOrigins(List<Origen> origenes)
+        {
+            foreach(Origen origen in origenes)
+            {
+                Console.WriteLine(origen.origen + " -- padre: " + origen.padre);
+            }
+        }
+
         public void print(Vertice vertice)
         {
-            Console.WriteLine("Vertice: " + vertice.valor);
+            //Console.WriteLine("Vertice: " + vertice.valor);
             int cont = 0;
             foreach (Vertice ver in vertice.Aristas)
             {
-                if(this.esOrigen("e", vertice, ver.valor))Console.WriteLine("ari: " + ver.valor + " --origen: " + ver.origenes);
+                Console.WriteLine("ari: " + ver.valor);
+                Console.WriteLine("Origenes");
+                this.printOrigins(ver.origenes);
+                //if (this.esOrigen("e", vertice, ver.valor)) Console.WriteLine("ari: " + ver.valor + " --origen: " + ver.origenes);
                 if (!ver.isChecked())
                 {
                     ver.checkearArista(cont);

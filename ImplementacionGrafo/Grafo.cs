@@ -47,6 +47,7 @@ namespace implementacionGrafo
                 {
                     foreach (Origen or in vr.origenes)
                     {
+                        //Console.WriteLine("origen: " + or.origen + " padre: " + or.padre + " -- ari: " + vr.valor + " --ver: " + ver.valor);
                         if (or.padre == vr.valor && or.origen == "e")
                         {
                             this.agregarConjunto(ver.valor, vr.valor);

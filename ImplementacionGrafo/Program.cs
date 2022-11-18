@@ -54,6 +54,7 @@ namespace ImplementacionGrafo
             interpretarLinea("{(1,a,1);(1,e,2);(2,a,3);(2,e,4);(3,b,2);(4,e,4);(1,e,4)}", ref grafo);
             Console.WriteLine("imprimiendo");
             List<Columna> columnas = new List<Columna>();
+            List<Clausura> clausuras = new List<Clausura>();
             foreach (string l in grafo.letras)
             {
                 int tam = grafo.v.Count;
@@ -86,23 +87,33 @@ namespace ImplementacionGrafo
                 columnas.Add(col);
             }
 
-            //Console.WriteLine("---------------------------------------");
-            //for (int i = 0; i < columnas.Count; i++)
-            //{
-            //    Console.WriteLine("letra: " + columnas[i].letra);
-            //    for (int j = 0; j < columnas[i].conjuntos.Count; j++)
-            //    {
-            //        Console.WriteLine("index: " + columnas[i].conjuntos[j].index);
-            //        for (int k = 0; k < columnas[i].conjuntos[j].posiciones.Count; k++)
-            //        {
-            //            Console.WriteLine("item: " + columnas[i].conjuntos[j].posiciones[k]);
-            //        }
-            //        Console.WriteLine("-----------------------------------");
-            //    }
-            //    Console.WriteLine("*******************************************");
-            //}
+            for (int i = 1; i <= grafo.v.Count; i++)
+            {
+                grafo.printArr(i, "e");
+                int pos = grafo.getConjuntoPos(i);
+                if (pos != -1)
+                {
+                    Conjunto c = grafo.conjuntos[pos];
+                    Clausura cl = new Clausura(c.index);
+                    cl.posiciones = c.posiciones;
+                    clausuras.Add(cl);
+                    grafo.clearConjuntos();
+                }
+            }
 
-            printByLetter(columnas, "e");
+
+
+            //foreach (Clausura clausura in clausuras)
+            //{
+            //    Console.WriteLine("ref: " + clausura.estado);
+            //    foreach (int pos in clausura.posiciones)
+            //    {
+            //        Console.WriteLine("pos: " + pos);
+            //    }
+            //    Console.WriteLine("-----------------------------");
+            //}
+            Celdas celda_actual;
+            //printByLetter(columnas, "e");
             Console.ReadKey();
         }
     }

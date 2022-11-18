@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Celdas.cs" />
+    <Compile Include="Clausura.cs" />
     <Compile Include="Columna.cs" />
     <Compile Include="Conjunto.cs" />
     <Compile Include="Grafo.cs" />

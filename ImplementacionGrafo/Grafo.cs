@@ -20,8 +20,8 @@ namespace implementacionGrafo
         public void addVertice(int valor)
         {
             this.v.Add(new Vertice(valor));
+            this.conjuntos.Add(new Conjunto(valor));
         }
-
         public Vertice getVertice(int val)
         {
             foreach (Vertice ver in this.v)
@@ -45,7 +45,14 @@ namespace implementacionGrafo
                 Console.WriteLine("Vertice: " + ver.valor);
                 foreach (Vertice vr in ver.Aristas)
                 {
-                    Console.WriteLine("ari: " + vr.valor);
+                    foreach (Origen or in vr.origenes)
+                    {
+                        if (or.padre == vr.valor && or.origen == "e")
+                        {
+                            Console.WriteLine("ari: " + vr.valor);
+                            Console.WriteLine("origen: " + or.origen);
+                        }
+                    }
                 }
             }
         }
@@ -73,7 +80,9 @@ namespace implementacionGrafo
             {
                 if (origen.origen == "e")
                 {
-                    Console.WriteLine("hijo: " + origen.referencia.valor + " -- "+ origen.origen + " -- padre: " + origen.padre);
+                    Console.WriteLine("REFERENCIA: " + this.valor_ref);
+                    this.agregarConjunto(origen.referencia.valor);
+                    Console.WriteLine("hijo: " + origen.referencia.valor + " -- " + origen.origen + " -- padre: " + origen.padre);
                 }
             }
         }
@@ -81,20 +90,40 @@ namespace implementacionGrafo
         List<Vertice> recorridos = new List<Vertice>();
         public bool esRecorrido(int valor)
         {
-            foreach(Vertice ver in recorridos)
+            foreach (Vertice ver in recorridos)
             {
                 if (ver.valor == valor) return true;
             }
             return false;
         }
 
+        public void agregarConjunto(int arista)
+        {
+            Conjunto conj = this.conjuntos.Find(c => c.index == this.valor_ref);
+            conj.posiciones.Add(arista);
+        }
+
+        public void printConjuntos()
+        {
+            foreach (Conjunto con in this.conjuntos)
+            {
+                Console.WriteLine("index: " + con.index);
+                foreach (int ari in con.posiciones)
+                {
+                    Console.WriteLine("item: " + ari);
+                }
+            }
+        }
+
+        public int print_count = 0;
+        public int valor_ref = 0;
         public void print(Vertice vertice)
         {
-            //Console.WriteLine("Vertice: " + vertice.valor);
+            if (this.print_count == 0) this.valor_ref = vertice.valor;
             int cont = 0;
             foreach (Vertice ver in vertice.Aristas)
             {
-                if(!this.esRecorrido(ver.valor))
+                if (!this.esRecorrido(ver.valor))
                 {
                     recorridos.Add(ver);
                     this.printOrigins(ver.origenes);
@@ -105,6 +134,7 @@ namespace implementacionGrafo
                     ver.checkearArista(cont);
                     cont++;
                     this.print(ver);
+                    this.print_count++;
                 }
             }
         }

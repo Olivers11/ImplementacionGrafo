@@ -27,6 +27,7 @@ namespace implementacionGrafo
 
         public void clearConjuntos()
         {
+            this.conjuntos = new List<Conjunto>();
             foreach(Vertice ver in this.v)
             {
                 this.conjuntos.Add(new Conjunto(ver.valor));

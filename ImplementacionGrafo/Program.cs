@@ -32,10 +32,9 @@ namespace ImplementacionGrafo
             grafo.addVertice(3);
             grafo.addVertice(4);
             interpretarLinea("{(1,a,1);(1,e,2);(2,a,3);(2,e,4);(3,b,2);(4,e,4);(1,e,4)}", ref grafo);
-            grafo.printArr(2, "e");
+            //grafo.printArr(2, "e");
             Console.WriteLine("imprimiendo");
-            Console.WriteLine("-------------------");
-            grafo.printConjuntos();
+            //grafo.printConjuntos();
             List<Columna> columnas = new List<Columna>();
             foreach (string l in grafo.letras)
             {
@@ -46,9 +45,12 @@ namespace ImplementacionGrafo
                 {
                     grafo.printArr(i, l);
                     int pos = grafo.getConjuntoPos(i);
-                    Conjunto c = grafo.conjuntos[pos];
-                    col.conjuntos.Add(c);
-                    grafo.clearConjuntos();
+                    if (pos != -1)
+                    {
+                        Conjunto c = grafo.conjuntos[pos];
+                        col.conjuntos.Add(c);
+                        grafo.clearConjuntos();
+                    }
                 }
                 columnas.Add(col);
             }
@@ -56,11 +58,13 @@ namespace ImplementacionGrafo
             Console.WriteLine("---------------------------------------");
             foreach (Columna col in columnas)
             {
+
+                Console.WriteLine("************************************************");
                 Console.WriteLine("Letra: " + col.letra);
-                foreach(Conjunto conj in col.conjuntos)
+                foreach (Conjunto conj in col.conjuntos)
                 {
                     Console.WriteLine("index: " + conj.index);
-                    foreach(int pos in conj.posiciones)
+                    foreach (int pos in conj.posiciones)
                     {
                         Console.WriteLine(pos);
                     }

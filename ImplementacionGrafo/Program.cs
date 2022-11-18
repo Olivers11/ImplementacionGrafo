@@ -56,19 +56,32 @@ namespace ImplementacionGrafo
             }
 
             Console.WriteLine("---------------------------------------");
-            foreach (Columna col in columnas)
+            //foreach (Columna col in columnas)
+            //{
+            //    Console.WriteLine("************************************************");
+            //    Console.WriteLine("Letra: " + col.letra);
+            //    foreach (Conjunto conj in col.conjuntos)
+            //    {
+            //        Console.WriteLine("index: " + conj.index);
+            //        foreach (int pos in conj.posiciones)
+            //        {
+            //            Console.WriteLine(pos);
+            //        }
+            //    }
+            //}
+            for(int i = 0; i < columnas.Count; i++)
             {
-
-                Console.WriteLine("************************************************");
-                Console.WriteLine("Letra: " + col.letra);
-                foreach (Conjunto conj in col.conjuntos)
+                Console.WriteLine("letra: " + columnas[i].letra);
+                for (int j = 0; j < columnas[i].conjuntos.Count; j++)
                 {
-                    Console.WriteLine("index: " + conj.index);
-                    foreach (int pos in conj.posiciones)
+                    Console.WriteLine("index: " + columnas[i].conjuntos[j].index);
+                    for (int k = 0; k < columnas[i].conjuntos[j].posiciones.Count; k++)
                     {
-                        Console.WriteLine(pos);
+                        Console.WriteLine("item: " + columnas[i].conjuntos[j].posiciones[k]);
                     }
+                    Console.WriteLine("-----------------------------------");
                 }
+                Console.WriteLine("*******************************************");
             }
 
 

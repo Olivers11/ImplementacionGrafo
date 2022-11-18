@@ -88,7 +88,7 @@ namespace ImplementacionGrafo
                                 Conjunto epsilon = columnas[i].conjuntos[1];
                                 foreach (int item in epsilon.posiciones)
                                 {
-                                    Console.WriteLine("estado:" + i +" eps: " + item);
+                                    Console.WriteLine("estado:" + i + " eps: " + item);
                                     celda.posiciones.Add(item);
                                 }
                             }
@@ -161,6 +161,33 @@ namespace ImplementacionGrafo
                 if (letra_apuntador == 1)
                 {
                     tabla.celdas.Add(celda_actual);
+                    Console.WriteLine("celda: " + celda_actual.id);
+                    List<int> elementos = new List<int>();
+                    List<Clausura> cls = new List<Clausura>();
+                    Console.Write("  {");
+                    foreach (int item in celda_actual.referencias)
+                    {
+                        Console.Write(" " + item + " ");
+                        Clausura cl = obtenerClausura(item, clausuras);
+                        Console.WriteLine("pidiendo: " + item + "  recib: " + cl.estado);
+                        cls.Add(cl);
+                    }
+                    Console.Write("}    ");
+                    foreach (Clausura cl in cls)
+                    {
+                        foreach (int item in cl.posiciones)
+                        {
+                            elementos.Add(item);
+                        }
+                    }
+                    celda_actual.posiciones = elementos;
+                    Console.Write("  {");
+                    foreach(int item in celda_actual.posiciones)
+                    {
+                        Console.Write(" " + item + " ");
+                    }
+                    Console.Write("  }");
+                    Console.WriteLine();
                 }
                 else
                 {
@@ -175,25 +202,30 @@ namespace ImplementacionGrafo
 
                 foreach (string letra in letras)
                 {
-                    Console.WriteLine("usando letra: " + letra);
                     Celdas celda2 = obtenerCelda(letra, celda_actual, columnas);
                     celda2.id = encabezado[letra_apuntador].ToString();
-                    Console.WriteLine("celda: " + celda2.id);
+                    Console.Write("celda: " + celda2.id);
                     List<int> elementos = new List<int>();
                     List<Clausura> cls = new List<Clausura>();
-                    Console.WriteLine("Tamaño de referencias: " + celda2.referencias.Count);
+                    Console.Write("  {");
                     foreach (int item in celda2.referencias)
                     {
+                        Console.Write(" " + item + " ");
                         Clausura cl = obtenerClausura(item, clausuras);
                         cls.Add(cl);
                     }
+                    Console.Write("}    ");
+                    Console.Write("    {");
                     foreach (Clausura cl in cls)
                     {
                         foreach (int item in cl.posiciones)
                         {
+                            Console.Write(" " + item + " ");
                             elementos.Add(item);
                         }
                     }
+                    Console.Write("    }");
+                    Console.WriteLine();
 
                     //Llenamos las posiciones de nuestra celda lol
                     //elementos = elementos.Distinct().ToList();
@@ -211,11 +243,12 @@ namespace ImplementacionGrafo
         static void Main(string[] args)
         {
             Grafo grafo = new Grafo();
+            grafo.addVertice(0);
             grafo.addVertice(1);
             grafo.addVertice(2);
             grafo.addVertice(3);
             grafo.addVertice(4);
-            interpretarLinea("{(1,a,1);(1,e,2);(2,a,3);(2,e,4);(3,b,2);(4,e,4);(1,e,4)}", ref grafo);
+            interpretarLinea("{(0,e,1);(1,a,1);(1,e,2);(1,e,4);(2,e,4);(2,a,3);(3,b,2);(4,e,4)}", ref grafo);
             Console.WriteLine("imprimiendo");
             List<Columna> columnas = new List<Columna>();
             List<Clausura> clausuras = new List<Clausura>();
@@ -223,7 +256,7 @@ namespace ImplementacionGrafo
             {
                 int tam = grafo.v.Count;
                 Columna col = new Columna(l);
-                for (int i = 1; i <= tam; i++)
+                for (int i = 0; i < tam; i++)
                 {
                     grafo.printArr(i, l);
                     int pos = grafo.getConjuntoPos(i);
@@ -250,7 +283,7 @@ namespace ImplementacionGrafo
                 columnas.Add(col);
             }
 
-            for (int i = 1; i <= grafo.v.Count; i++)
+            for (int i = 0; i < grafo.v.Count; i++)
             {
                 grafo.printArr(i, "e");
                 int pos = grafo.getConjuntoPos(i);

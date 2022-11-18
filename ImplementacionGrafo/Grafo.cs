@@ -67,7 +67,7 @@ namespace implementacionGrafo
             int cont = 0;
             foreach (Vertice ver in this.v)
             {
-                if (cont >= estado - 1)
+                if (cont >= estado)
                 {
                     //Console.WriteLine("Vertice: " + ver.valor);
                     if (!this.seSigue(ver, letra)) break;

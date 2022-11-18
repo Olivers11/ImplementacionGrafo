@@ -24,6 +24,26 @@ namespace ImplementacionGrafo
                 grafo.referenciarVertice(internas[1], Convert.ToInt32(internas[2]), Convert.ToInt32(internas[0]));
             }
         }
+        public static void printByLetter(List<Columna> columnas, string letra)
+        {
+            for (int i = 0; i < columnas.Count; i++)
+            {
+                if (columnas[i].letra == letra)
+                {
+                    Console.WriteLine("letra: " + columnas[i].letra);
+                    for (int j = 0; j < columnas[i].conjuntos.Count; j++)
+                    {
+                        Console.Write(columnas[i].conjuntos[j].index);
+                        for (int k = 0; k < columnas[i].conjuntos[j].posiciones.Count; k++)
+                        {
+                            Console.Write("     " + columnas[i].conjuntos[j].posiciones[k]);
+                        }
+                        Console.WriteLine("");
+                    }
+                }
+                Console.WriteLine();
+            }
+        }
         static void Main(string[] args)
         {
             Grafo grafo = new Grafo();
@@ -32,9 +52,7 @@ namespace ImplementacionGrafo
             grafo.addVertice(3);
             grafo.addVertice(4);
             interpretarLinea("{(1,a,1);(1,e,2);(2,a,3);(2,e,4);(3,b,2);(4,e,4);(1,e,4)}", ref grafo);
-            //grafo.printArr(2, "e");
             Console.WriteLine("imprimiendo");
-            //grafo.printConjuntos();
             List<Columna> columnas = new List<Columna>();
             foreach (string l in grafo.letras)
             {
@@ -49,10 +67,10 @@ namespace ImplementacionGrafo
                     {
                         Conjunto c = grafo.conjuntos[pos];
                         Conjunto aux = new Conjunto(c.index);
-                        foreach(int x in c.posiciones)
+                        foreach (int x in c.posiciones)
                         {
                             bool existe = false;
-                            foreach(Vertice arista in grafo.getVertice(i).Aristas)
+                            foreach (Vertice arista in grafo.getVertice(i).Aristas)
                             {
                                 if (arista.valor == x) existe = true;
                             }
@@ -68,36 +86,23 @@ namespace ImplementacionGrafo
                 columnas.Add(col);
             }
 
-            Console.WriteLine("---------------------------------------");
-            //foreach (Columna col in columnas)
+            //Console.WriteLine("---------------------------------------");
+            //for (int i = 0; i < columnas.Count; i++)
             //{
-            //    Console.WriteLine("************************************************");
-            //    Console.WriteLine("Letra: " + col.letra);
-            //    foreach (Conjunto conj in col.conjuntos)
+            //    Console.WriteLine("letra: " + columnas[i].letra);
+            //    for (int j = 0; j < columnas[i].conjuntos.Count; j++)
             //    {
-            //        Console.WriteLine("index: " + conj.index);
-            //        foreach (int pos in conj.posiciones)
+            //        Console.WriteLine("index: " + columnas[i].conjuntos[j].index);
+            //        for (int k = 0; k < columnas[i].conjuntos[j].posiciones.Count; k++)
             //        {
-            //            Console.WriteLine(pos);
+            //            Console.WriteLine("item: " + columnas[i].conjuntos[j].posiciones[k]);
             //        }
+            //        Console.WriteLine("-----------------------------------");
             //    }
+            //    Console.WriteLine("*******************************************");
             //}
-            for (int i = 0; i < columnas.Count; i++)
-            {
-                Console.WriteLine("letra: " + columnas[i].letra);
-                for (int j = 0; j < columnas[i].conjuntos.Count; j++)
-                {
-                    Console.WriteLine("index: " + columnas[i].conjuntos[j].index);
-                    for (int k = 0; k < columnas[i].conjuntos[j].posiciones.Count; k++)
-                    {
-                        Console.WriteLine("item: " + columnas[i].conjuntos[j].posiciones[k]);
-                    }
-                    Console.WriteLine("-----------------------------------");
-                }
-                Console.WriteLine("*******************************************");
-            }
 
-
+            printByLetter(columnas, "e");
             Console.ReadKey();
         }
     }

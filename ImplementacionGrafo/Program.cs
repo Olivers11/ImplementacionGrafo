@@ -32,11 +32,14 @@ namespace ImplementacionGrafo
             grafo.addVertice(3);
             grafo.addVertice(4);
             interpretarLinea("{(1,a,1);(1,e,2);(2,a,3);(2,e,4);(3,b,2);(4,e,4);(1,e,4)}", ref grafo);
-            grafo.printArr(1, "e");
+            grafo.printArr(2, "e");
             Console.WriteLine("imprimiendo");
             Console.WriteLine("-------------------");
             grafo.printConjuntos();
-            
+            foreach(string l in grafo.letras)
+            {
+                Console.WriteLine(l);
+            }
             Console.ReadKey();
         }
     }

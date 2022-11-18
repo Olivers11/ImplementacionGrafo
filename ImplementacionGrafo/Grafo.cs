@@ -11,10 +11,12 @@ namespace implementacionGrafo
     {
         public List<Vertice> v;
         public List<Conjunto> conjuntos;
+        public List<string> letras;
         public Grafo()
         {
             this.v = new List<Vertice>();
             this.conjuntos = new List<Conjunto>();
+            this.letras = new List<string>();
         }
 
         public void addVertice(int valor)
@@ -32,10 +34,12 @@ namespace implementacionGrafo
         }
         public void referenciarVertice(string letra, int hijo, int padre)
         {
+            this.letras.Add(letra);
             Vertice vertice_p = this.getVertice(padre);
             Vertice vertice_h = this.getVertice(hijo);
             vertice_h.origenes.Add(new Origen(letra, padre, hijo));
             vertice_p.Aristas.Add(vertice_h);
+            this.letras = this.letras.Distinct().ToList();
         }
 
         public bool seSigue(Vertice ver, string letra)

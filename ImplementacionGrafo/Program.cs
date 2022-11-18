@@ -53,6 +53,21 @@ namespace ImplementacionGrafo
                 columnas.Add(col);
             }
 
+            Console.WriteLine("---------------------------------------");
+            foreach (Columna col in columnas)
+            {
+                Console.WriteLine("Letra: " + col.letra);
+                foreach(Conjunto conj in col.conjuntos)
+                {
+                    Console.WriteLine("index: " + conj.index);
+                    foreach(int pos in conj.posiciones)
+                    {
+                        Console.WriteLine(pos);
+                    }
+                }
+            }
+
+
             Console.ReadKey();
         }
     }

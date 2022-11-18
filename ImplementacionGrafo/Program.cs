@@ -253,19 +253,8 @@ namespace ImplementacionGrafo
                     grafo.clearConjuntos();
                 }
             }
-
-
-
-            //foreach (Clausura clausura in clausuras)
-            //{
-            //    Console.WriteLine("ref: " + clausura.estado);
-            //    foreach (int pos in clausura.posiciones)
-            //    {
-            //        Console.WriteLine("pos: " + pos);
-            //    }
-            //    Console.WriteLine("-----------------------------");
-            //}
             printByLetter(columnas, "e");
+            generarAutomata(columnas, clausuras, grafo.letras);
             Console.ReadKey();
         }
     }

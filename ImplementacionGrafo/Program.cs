@@ -45,12 +45,24 @@ namespace ImplementacionGrafo
                 {
                     grafo.printArr(i, l);
                     int pos = grafo.getConjuntoPos(i);
-                    if(pos != -1)
+                    if (pos != -1)
                     {
-                        Conjunto c = new Conjunto(i);
-                        col.conjuntos.Add(c);
+                        Conjunto c = grafo.conjuntos[pos];
+                        Conjunto aux = new Conjunto(c.index);
+                        foreach(int x in c.posiciones)
+                        {
+                            bool existe = false;
+                            foreach(Vertice arista in grafo.getVertice(i).Aristas)
+                            {
+                                if (arista.valor == x) existe = true;
+                            }
+                            if (existe)
+                            {
+                                aux.posiciones.Add(x);
+                            }
+                        }
+                        col.conjuntos.Add(aux);
                         grafo.clearConjuntos();
-                        c.posiciones.Add(vr.valor);
                     }
                 }
                 columnas.Add(col);

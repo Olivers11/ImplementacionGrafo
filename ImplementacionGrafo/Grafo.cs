@@ -69,10 +69,23 @@ namespace implementacionGrafo
 
         public void printOrigins(List<Origen> origenes)
         {
-            foreach(Origen origen in origenes)
+            foreach (Origen origen in origenes)
             {
-                Console.WriteLine(origen.origen + " -- padre: " + origen.padre);
+                if (origen.origen == "e")
+                {
+                    Console.WriteLine("hijo: " + origen.referencia.valor + " -- "+ origen.origen + " -- padre: " + origen.padre);
+                }
             }
+        }
+
+        List<Vertice> recorridos = new List<Vertice>();
+        public bool esRecorrido(int valor)
+        {
+            foreach(Vertice ver in recorridos)
+            {
+                if (ver.valor == valor) return true;
+            }
+            return false;
         }
 
         public void print(Vertice vertice)
@@ -81,9 +94,11 @@ namespace implementacionGrafo
             int cont = 0;
             foreach (Vertice ver in vertice.Aristas)
             {
-                Console.WriteLine("ari: " + ver.valor);
-                Console.WriteLine("Origenes");
-                this.printOrigins(ver.origenes);
+                if(!this.esRecorrido(ver.valor))
+                {
+                    recorridos.Add(ver);
+                    this.printOrigins(ver.origenes);
+                }
                 //if (this.esOrigen("e", vertice, ver.valor)) Console.WriteLine("ari: " + ver.valor + " --origen: " + ver.origenes);
                 if (!ver.isChecked())
                 {

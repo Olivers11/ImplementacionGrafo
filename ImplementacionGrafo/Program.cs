@@ -44,6 +44,112 @@ namespace ImplementacionGrafo
                 Console.WriteLine();
             }
         }
+
+
+        static bool seRecorrio(List<int> refs, List<int> rec)
+        {
+            int cont = 0;
+            List<int> repetidos = new List<int>();
+            foreach (int item in refs)
+            {
+                if (rec.Contains(item) && repetidos.Contains(item) == false)
+                {
+                    cont++;
+                    repetidos.Add(item);
+                }
+            }
+            return cont == refs.Count;
+        }
+        static Celdas obtenerCelda(string letra, Celdas celda, List<Columna> columnas)
+        {
+            List<int> referencias = new List<int>();
+            List<int> recorridos = new List<int>();
+            List<int> indices = new List<int>();
+            Celdas aux = new Celdas("");
+            while (!seRecorrio(referencias, recorridos))
+            {
+
+                for (int i = 0; i < columnas.Count; i++)
+                {
+                    if (columnas[i].letra == letra)
+                    {
+                        Console.WriteLine("letra: " + columnas[i].letra);
+                        for (int j = 0; j < columnas[i].conjuntos.Count; j++)
+                        {
+                            Conjunto current = columnas[i].conjuntos[j];
+                            if (celda.posiciones.Contains(current.index))
+                            {
+                                if (current.posiciones.Count > 0)
+                                {
+                                    foreach (int item in current.posiciones)
+                                    {
+                                        referencias.Add(item);
+                                    }
+                                }
+                                else
+                                {
+                                    Conjunto epsilon = columnas[i].conjuntos[1];
+                                    foreach (int item in epsilon.posiciones)
+                                    {
+                                        celda.posiciones.Add(item);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return aux;
+        }
+
+        static Clausura obtenerClausura(int valor, List<Clausura> clausuras)
+        {
+            foreach (Clausura clausura in clausuras)
+            {
+                if (clausura.estado == valor) return clausura;
+            }
+            return null;
+        }
+
+        static void generarAutomata(List<Columna> columnas, List<Clausura> clausuras, List<string> letras)
+        {
+            string encabezado = "abcdefghijklmnopqrstuvwxyz";
+            int letra_apuntador = 0;
+            Celdas celda_actual = new Celdas(encabezado[letra_apuntador].ToString());
+            celda_actual.referencias.Add(clausuras[0].estado);
+            celda_actual.posiciones = clausuras[0].posiciones;
+            List<Tabla> matriz = new List<Tabla>();
+            bool trabajar = true;
+            letra_apuntador++;
+            while (trabajar)
+            {
+                Tabla tabla = new Tabla();
+                tabla.celdas.Add(celda_actual);
+                foreach (string letra in letras)
+                {
+                    Celdas celda2 = obtenerCelda(letra, celda_actual, columnas);
+                    List<int> elementos = new List<int>();
+                    List<Clausura> cls = new List<Clausura>();
+                    foreach (int item in celda2.referencias)
+                    {
+                        Clausura cl = obtenerClausura(item, clausuras);
+                        cls.Add(cl);
+                    }
+                    foreach (Clausura cl in cls)
+                    {
+                        foreach(int item in cl.posiciones)
+                        {
+                            elementos.Add(item);
+                        }
+                    }
+                    elementos = elementos.Distinct().ToList();
+                    celda2.posiciones = elementos;
+                    celda_actual = celda2;
+                    tabla.celdas.Add(celda_actual);
+                }
+            }
+
+        }
         static void Main(string[] args)
         {
             Grafo grafo = new Grafo();
@@ -112,8 +218,7 @@ namespace ImplementacionGrafo
             //    }
             //    Console.WriteLine("-----------------------------");
             //}
-            Celdas celda_actual;
-            //printByLetter(columnas, "e");
+            printByLetter(columnas, "e");
             Console.ReadKey();
         }
     }

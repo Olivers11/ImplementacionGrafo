@@ -88,6 +88,7 @@ namespace ImplementacionGrafo
                                 Conjunto epsilon = columnas[i].conjuntos[1];
                                 foreach (int item in epsilon.posiciones)
                                 {
+                                    Console.WriteLine("estado:" + i +" eps: " + item);
                                     celda.posiciones.Add(item);
                                 }
                             }

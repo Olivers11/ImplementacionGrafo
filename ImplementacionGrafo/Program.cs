@@ -48,6 +48,7 @@ namespace ImplementacionGrafo
 
         static bool seRecorrio(List<int> refs, List<int> rec)
         {
+            if (refs.Count == 0) return false;
             int cont = 0;
             List<int> repetidos = new List<int>();
             foreach (int item in refs)
@@ -66,39 +67,35 @@ namespace ImplementacionGrafo
             List<int> recorridos = new List<int>();
             List<int> indices = new List<int>();
             Celdas aux = new Celdas("");
-            while (!seRecorrio(referencias, recorridos))
+            for (int i = 0; i < columnas.Count; i++)
             {
-
-                for (int i = 0; i < columnas.Count; i++)
+                if (columnas[i].letra == letra)
                 {
-                    if (columnas[i].letra == letra)
+                    for (int j = 0; j < columnas[i].conjuntos.Count; j++)
                     {
-                        Console.WriteLine("letra: " + columnas[i].letra);
-                        for (int j = 0; j < columnas[i].conjuntos.Count; j++)
+                        Conjunto current = columnas[i].conjuntos[j];
+                        if (celda.posiciones.Contains(current.index))
                         {
-                            Conjunto current = columnas[i].conjuntos[j];
-                            if (celda.posiciones.Contains(current.index))
+                            if (current.posiciones.Count > 0)
                             {
-                                if (current.posiciones.Count > 0)
+                                foreach (int item in current.posiciones)
                                 {
-                                    foreach (int item in current.posiciones)
-                                    {
-                                        referencias.Add(item);
-                                    }
+                                    referencias.Add(item);
                                 }
-                                else
+                            }
+                            else
+                            {
+                                Conjunto epsilon = columnas[i].conjuntos[1];
+                                foreach (int item in epsilon.posiciones)
                                 {
-                                    Conjunto epsilon = columnas[i].conjuntos[1];
-                                    foreach (int item in epsilon.posiciones)
-                                    {
-                                        celda.posiciones.Add(item);
-                                    }
+                                    celda.posiciones.Add(item);
                                 }
                             }
                         }
                     }
                 }
             }
+            aux.referencias = referencias;
             return aux;
         }
 
@@ -156,7 +153,8 @@ namespace ImplementacionGrafo
             List<Tabla> matriz = new List<Tabla>();
             bool trabajar = true;
             letra_apuntador++;
-            while (trabajar)
+            Console.WriteLine("Antes de trabajar");
+            while (trabajar && letra_apuntador < 6)
             {
                 Tabla tabla = new Tabla();
                 if (letra_apuntador == 1)
@@ -166,15 +164,23 @@ namespace ImplementacionGrafo
                 else
                 {
                     string ultima_letra = ultimaLetra(matriz);
-                    celda_actual = obtenerCelda(encabezado[getPos(ultima_letra, encabezado)].ToString(), matriz);
-                    tabla.celdas.Add(celda_actual);
+                    int pos = getPos(ultima_letra, encabezado);
+                    if (pos != -1)
+                    {
+                        celda_actual = obtenerCelda(encabezado[pos].ToString(), matriz);
+                        tabla.celdas.Add(celda_actual);
+                    }
                 }
-                
+
                 foreach (string letra in letras)
                 {
+                    Console.WriteLine("usando letra: " + letra);
                     Celdas celda2 = obtenerCelda(letra, celda_actual, columnas);
+                    celda2.id = encabezado[letra_apuntador].ToString();
+                    Console.WriteLine("celda: " + celda2.id);
                     List<int> elementos = new List<int>();
                     List<Clausura> cls = new List<Clausura>();
+                    Console.WriteLine("Tamaño de referencias: " + celda2.referencias.Count);
                     foreach (int item in celda2.referencias)
                     {
                         Clausura cl = obtenerClausura(item, clausuras);
@@ -187,10 +193,13 @@ namespace ImplementacionGrafo
                             elementos.Add(item);
                         }
                     }
-                    elementos = elementos.Distinct().ToList();
+
+                    //Llenamos las posiciones de nuestra celda lol
+                    //elementos = elementos.Distinct().ToList();
                     celda2.posiciones = elementos;
+                    //imprimiremos las clausuras de nuestra celda
+
                     celda_actual = celda2;
-                    celda_actual.id = encabezado[letra_apuntador].ToString();
                     letra_apuntador++;
                     tabla.celdas.Add(celda_actual);
                 }

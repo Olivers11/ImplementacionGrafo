@@ -111,9 +111,44 @@ namespace ImplementacionGrafo
             return null;
         }
 
+        static string ultimaLetra(List<Tabla> matriz)
+        {
+            string letra = "";
+            for (int i = 0; i < matriz.Count; i++)
+            {
+                Tabla tabla = matriz[i];
+                letra = tabla.celdas[0].id;
+            }
+            return letra;
+        }
+
+        static Celdas obtenerCelda(string letra, List<Tabla> matriz)
+        {
+            for (int i = 0; i < matriz.Count; i++)
+            {
+                Tabla tabla = matriz[i];
+                for (int j = 0; j < tabla.celdas.Count; j++)
+                {
+                    if (tabla.celdas[j].id == letra) return tabla.celdas[j];
+                }
+            }
+            return null;
+        }
+
+        static int getPos(string letra, string letras)
+        {
+            for (int i = 0; i < letras.Length; i++)
+            {
+                string l = letras[i].ToString();
+                if (l == letra) return i + 1;
+            }
+            return -1;
+        }
+
         static void generarAutomata(List<Columna> columnas, List<Clausura> clausuras, List<string> letras)
         {
             string encabezado = "abcdefghijklmnopqrstuvwxyz";
+            encabezado = encabezado.ToUpper();
             int letra_apuntador = 0;
             Celdas celda_actual = new Celdas(encabezado[letra_apuntador].ToString());
             celda_actual.referencias.Add(clausuras[0].estado);
@@ -124,7 +159,16 @@ namespace ImplementacionGrafo
             while (trabajar)
             {
                 Tabla tabla = new Tabla();
-                tabla.celdas.Add(celda_actual);
+                if (letra_apuntador == 1)
+                {
+                    tabla.celdas.Add(celda_actual);
+                }
+                else
+                {
+                    string ultima_letra = ultimaLetra(matriz);
+                    celda_actual = obtenerCelda(encabezado[getPos(ultima_letra, encabezado)].ToString(), matriz);
+                    tabla.celdas.Add(celda_actual);
+                }
                 foreach (string letra in letras)
                 {
                     Celdas celda2 = obtenerCelda(letra, celda_actual, columnas);
@@ -137,7 +181,7 @@ namespace ImplementacionGrafo
                     }
                     foreach (Clausura cl in cls)
                     {
-                        foreach(int item in cl.posiciones)
+                        foreach (int item in cl.posiciones)
                         {
                             elementos.Add(item);
                         }
@@ -145,8 +189,11 @@ namespace ImplementacionGrafo
                     elementos = elementos.Distinct().ToList();
                     celda2.posiciones = elementos;
                     celda_actual = celda2;
+                    celda_actual.id = encabezado[letra_apuntador].ToString();
+                    letra_apuntador++;
                     tabla.celdas.Add(celda_actual);
                 }
+                matriz.Add(tabla);
             }
 
         }

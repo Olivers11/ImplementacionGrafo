@@ -45,11 +45,12 @@ namespace ImplementacionGrafo
                 {
                     grafo.printArr(i, l);
                     int pos = grafo.getConjuntoPos(i);
-                    if (pos != -1)
+                    if(pos != -1)
                     {
-                        Conjunto c = grafo.conjuntos[pos];
+                        Conjunto c = new Conjunto(i);
                         col.conjuntos.Add(c);
                         grafo.clearConjuntos();
+                        c.posiciones.Add(vr.valor);
                     }
                 }
                 columnas.Add(col);
@@ -69,7 +70,7 @@ namespace ImplementacionGrafo
             //        }
             //    }
             //}
-            for(int i = 0; i < columnas.Count; i++)
+            for (int i = 0; i < columnas.Count; i++)
             {
                 Console.WriteLine("letra: " + columnas[i].letra);
                 for (int j = 0; j < columnas[i].conjuntos.Count; j++)

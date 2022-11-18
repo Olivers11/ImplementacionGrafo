@@ -35,15 +35,8 @@ namespace ImplementacionGrafo
             grafo.printArr();
             Console.WriteLine("imprimiendo");
             Console.WriteLine("-------------------");
-            //grafo.print(grafo.getVertice(1));
             grafo.printConjuntos();
-            /*for (int i = 1; i < grafo.v.Count; i++)
-            {
-                Console.WriteLine("recorriendo: " + i);
-                grafo.contarHijos(grafo.getVertice(i), "e");
-                grafo.printPosiciones(i);
-                grafo.clearComponents();
-            }*/
+            
             Console.ReadKey();
         }
     }

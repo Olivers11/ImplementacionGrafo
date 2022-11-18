@@ -66,37 +66,7 @@ namespace implementacionGrafo
             }
             return -1;
         }
-        public bool esOrigen(string letra, Vertice ver, int valor)
-        {
-            foreach (Origen or in ver.origenes)
-            {
-                if (or.padre == valor && or.origen == letra) return true;
-            }
-            return false;
-        }
-
-        public void printOrigins(List<Origen> origenes)
-        {
-            foreach (Origen origen in origenes)
-            {
-                if (origen.origen == "e")
-                {
-                    Console.WriteLine("REFERENCIA: " + this.valor_ref);
-                    Console.WriteLine("hijo: " + origen.referencia.valor + " -- " + origen.origen + " -- padre: " + origen.padre);
-                }
-            }
-        }
-
-        List<Vertice> recorridos = new List<Vertice>();
-        public bool esRecorrido(int valor)
-        {
-            foreach (Vertice ver in recorridos)
-            {
-                if (ver.valor == valor) return true;
-            }
-            return false;
-        }
-
+        
         public void agregarConjunto(int vertice, int arista)
         {
             Conjunto conj = this.conjuntos.Find(c => c.index == vertice);
@@ -115,32 +85,7 @@ namespace implementacionGrafo
             }
         }
 
-        public int print_count = 0;
-        public int valor_ref = 0;
-        public void print(Vertice vertice)
-        {
-            if (this.print_count == 0) this.valor_ref = vertice.valor;
-            int cont = 0;
-            foreach (Vertice ver in vertice.Aristas)
-            {
-                if (!this.esRecorrido(ver.valor))
-                {
-                    recorridos.Add(ver);
-                    this.printOrigins(ver.origenes);
-                }
-                //if (this.esOrigen("e", vertice, ver.valor)) Console.WriteLine("ari: " + ver.valor + " --origen: " + ver.origenes);
-                if (!ver.isChecked())
-                {
-                    ver.checkearArista(cont);
-                    cont++;
-                    this.print(ver);
-                    this.print_count++;
-                }
-            }
-        }
-
 
 
     }
 }
-

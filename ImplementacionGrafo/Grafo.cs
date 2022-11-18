@@ -49,7 +49,7 @@ namespace implementacionGrafo
             }
             return false;
         }
-        public void printArr(int estado)
+        public void printArr(int estado, string letra)
         {
             int cont = 0;
             foreach (Vertice ver in this.v)
@@ -57,13 +57,13 @@ namespace implementacionGrafo
                 if (cont >= estado - 1)
                 {
                     Console.WriteLine("Vertice: " + ver.valor);
-                    if (!this.seSigue(ver, "e")) break;
+                    if (!this.seSigue(ver, letra)) break;
                     foreach (Vertice vr in ver.Aristas)
                     {
                         foreach (Origen or in vr.origenes)
                         {
                             //Console.WriteLine("origen: " + or.origen + " padre: " + or.padre + " -- ari: " + vr.valor + " --ver: " + ver.valor);
-                            if (or.padre == ver.valor && or.origen == "e")
+                            if (or.padre == ver.valor && or.origen == letra)
                             {
                                 this.agregarConjunto(ver.valor, vr.valor);
                                 Console.WriteLine("ari: " + vr.valor);

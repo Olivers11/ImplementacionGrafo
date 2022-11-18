@@ -182,7 +182,7 @@ namespace ImplementacionGrafo
                     }
                     celda_actual.posiciones = elementos;
                     Console.Write("  {");
-                    foreach(int item in celda_actual.posiciones)
+                    foreach (int item in celda_actual.posiciones)
                     {
                         Console.Write(" " + item + " ");
                     }
@@ -297,7 +297,16 @@ namespace ImplementacionGrafo
                 }
             }
             printByLetter(columnas, "e");
-            generarAutomata(columnas, clausuras, grafo.letras);
+            //Console.WriteLine("---------------------------");
+            //foreach (Clausura cl in clausuras)
+            //{
+            //    Console.WriteLine("Estado: " + cl.estado);
+            //    foreach (int item in cl.posiciones)
+            //    {
+            //        Console.WriteLine(item);
+            //    }
+            //}
+            //generarAutomata(columnas, clausuras, grafo.letras);
             Console.ReadKey();
         }
     }

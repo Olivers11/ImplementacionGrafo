@@ -69,14 +69,14 @@ namespace implementacionGrafo
             {
                 if (cont >= estado)
                 {
-                    //Console.WriteLine("Vertice: " + ver.valor);
+                    Console.WriteLine("Vertice: " + ver.valor);
                     if (!this.seSigue(ver, letra)) break;
                     foreach (Vertice vr in ver.Aristas)
                     {
                         foreach (Origen or in vr.origenes)
                         {
-                            //Console.WriteLine("origen: " + or.origen + " padre: " + or.padre + " -- ari: " + vr.valor + " --ver: " + ver.valor);
-                            if (or.padre == ver.valor && or.origen == letra)
+                            Console.WriteLine("origen: " + or.origen + " padre: " + or.padre + " -- ari: " + vr.valor + " --ver: " + ver.valor);
+                            if (or.padre == ver.valor && or.origen == letra || vr.valor == ver.valor)
                             {
                                 this.agregarConjunto(ver.valor, vr.valor);
                                 //Console.WriteLine("ari: " + vr.valor);

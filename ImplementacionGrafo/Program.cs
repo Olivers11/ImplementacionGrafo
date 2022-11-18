@@ -169,6 +169,7 @@ namespace ImplementacionGrafo
                     celda_actual = obtenerCelda(encabezado[getPos(ultima_letra, encabezado)].ToString(), matriz);
                     tabla.celdas.Add(celda_actual);
                 }
+                
                 foreach (string letra in letras)
                 {
                     Celdas celda2 = obtenerCelda(letra, celda_actual, columnas);
@@ -211,7 +212,6 @@ namespace ImplementacionGrafo
             foreach (string l in grafo.letras)
             {
                 int tam = grafo.v.Count;
-                Console.WriteLine("Letra: " + l);
                 Columna col = new Columna(l);
                 for (int i = 1; i <= tam; i++)
                 {

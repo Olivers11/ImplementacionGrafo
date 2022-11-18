@@ -69,7 +69,7 @@ namespace implementacionGrafo
             {
                 if (cont >= estado - 1)
                 {
-                    Console.WriteLine("Vertice: " + ver.valor);
+                    //Console.WriteLine("Vertice: " + ver.valor);
                     if (!this.seSigue(ver, letra)) break;
                     foreach (Vertice vr in ver.Aristas)
                     {
@@ -79,8 +79,8 @@ namespace implementacionGrafo
                             if (or.padre == ver.valor && or.origen == letra)
                             {
                                 this.agregarConjunto(ver.valor, vr.valor);
-                                Console.WriteLine("ari: " + vr.valor);
-                                Console.WriteLine("origen: " + or.origen);
+                                //Console.WriteLine("ari: " + vr.valor);
+                                //Console.WriteLine("origen: " + or.origen);
                             }
                         }
                     }
@@ -108,10 +108,10 @@ namespace implementacionGrafo
         {
             foreach (Conjunto con in this.conjuntos)
             {
-                Console.WriteLine("index: " + con.index);
+                //Console.WriteLine("index: " + con.index);
                 foreach (int ari in con.posiciones)
                 {
-                    Console.WriteLine("item: " + ari);
+                    //Console.WriteLine("item: " + ari);
                 }
             }
         }

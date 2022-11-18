@@ -36,10 +36,23 @@ namespace ImplementacionGrafo
             Console.WriteLine("imprimiendo");
             Console.WriteLine("-------------------");
             grafo.printConjuntos();
-            foreach(string l in grafo.letras)
+            List<Columna> columnas = new List<Columna>();
+            foreach (string l in grafo.letras)
             {
-                Console.WriteLine(l);
+                int tam = grafo.v.Count;
+                Console.WriteLine("Letra: " + l);
+                Columna col = new Columna(l);
+                for (int i = 1; i <= tam; i++)
+                {
+                    grafo.printArr(i, l);
+                    int pos = grafo.getConjuntoPos(i);
+                    Conjunto c = grafo.conjuntos[pos];
+                    col.conjuntos.Add(c);
+                    grafo.clearConjuntos();
+                }
+                columnas.Add(col);
             }
+
             Console.ReadKey();
         }
     }

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Columna.cs" />
     <Compile Include="Conjunto.cs" />
     <Compile Include="Grafo.cs" />
     <Compile Include="Origen.cs" />

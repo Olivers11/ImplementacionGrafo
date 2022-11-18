@@ -24,6 +24,14 @@ namespace implementacionGrafo
             this.v.Add(new Vertice(valor));
             this.conjuntos.Add(new Conjunto(valor));
         }
+
+        public void clearConjuntos()
+        {
+            foreach(Vertice ver in this.v)
+            {
+                this.conjuntos.Add(new Conjunto(ver.valor));
+            }
+        }
         public Vertice getVertice(int val)
         {
             foreach (Vertice ver in this.v)
@@ -107,7 +115,15 @@ namespace implementacionGrafo
             }
         }
 
-
-
+        public int getConjuntoPos(int valor)
+        {
+            int cont = 0;
+            foreach(Conjunto c in this.conjuntos)
+            { 
+                if (c.index == valor) return cont;
+                cont++;
+            }
+            return -1;
+        }
     }
 }

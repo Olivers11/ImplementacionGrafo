@@ -49,6 +49,7 @@ namespace implementacionGrafo
                     {
                         if (or.padre == vr.valor && or.origen == "e")
                         {
+                            this.agregarConjunto(ver.valor, vr.valor);
                             Console.WriteLine("ari: " + vr.valor);
                             Console.WriteLine("origen: " + or.origen);
                         }
@@ -81,7 +82,6 @@ namespace implementacionGrafo
                 if (origen.origen == "e")
                 {
                     Console.WriteLine("REFERENCIA: " + this.valor_ref);
-                    this.agregarConjunto(origen.referencia.valor);
                     Console.WriteLine("hijo: " + origen.referencia.valor + " -- " + origen.origen + " -- padre: " + origen.padre);
                 }
             }
@@ -97,9 +97,9 @@ namespace implementacionGrafo
             return false;
         }
 
-        public void agregarConjunto(int arista)
+        public void agregarConjunto(int vertice, int arista)
         {
-            Conjunto conj = this.conjuntos.Find(c => c.index == this.valor_ref);
+            Conjunto conj = this.conjuntos.Find(c => c.index == vertice);
             conj.posiciones.Add(arista);
         }
 

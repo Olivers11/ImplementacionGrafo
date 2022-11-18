@@ -36,7 +36,7 @@ namespace ImplementacionGrafo
             Console.WriteLine("imprimiendo");
             Console.WriteLine("-------------------");
             //grafo.print(grafo.getVertice(1));
-            //grafo.printConjuntos();
+            grafo.printConjuntos();
             /*for (int i = 1; i < grafo.v.Count; i++)
             {
                 Console.WriteLine("recorriendo: " + i);

@@ -38,24 +38,41 @@ namespace implementacionGrafo
             vertice_p.Aristas.Add(vertice_h);
         }
 
-        public void printArr()
+        public bool seSigue(Vertice ver, string letra)
         {
+            foreach(Vertice vr in ver.Aristas)
+            {
+                foreach(Origen origen in vr.origenes)
+                {
+                    if (origen.origen == letra) return true;
+                }
+            }
+            return false;
+        }
+        public void printArr(int estado)
+        {
+            int cont = 0;
             foreach (Vertice ver in this.v)
             {
-                Console.WriteLine("Vertice: " + ver.valor);
-                foreach (Vertice vr in ver.Aristas)
+                if (cont >= estado - 1)
                 {
-                    foreach (Origen or in vr.origenes)
+                    Console.WriteLine("Vertice: " + ver.valor);
+                    if (!this.seSigue(ver, "a")) break;
+                    foreach (Vertice vr in ver.Aristas)
                     {
-                        //Console.WriteLine("origen: " + or.origen + " padre: " + or.padre + " -- ari: " + vr.valor + " --ver: " + ver.valor);
-                        if (or.padre == vr.valor && or.origen == "e")
+                        foreach (Origen or in vr.origenes)
                         {
-                            this.agregarConjunto(ver.valor, vr.valor);
-                            Console.WriteLine("ari: " + vr.valor);
-                            Console.WriteLine("origen: " + or.origen);
+                            //Console.WriteLine("origen: " + or.origen + " padre: " + or.padre + " -- ari: " + vr.valor + " --ver: " + ver.valor);
+                            if (or.padre == ver.valor && or.origen == "a")
+                            {
+                                this.agregarConjunto(ver.valor, vr.valor);
+                                Console.WriteLine("ari: " + vr.valor);
+                                Console.WriteLine("origen: " + or.origen);
+                            }
                         }
                     }
                 }
+                cont++;
             }
         }
 
@@ -67,7 +84,7 @@ namespace implementacionGrafo
             }
             return -1;
         }
-        
+
         public void agregarConjunto(int vertice, int arista)
         {
             Conjunto conj = this.conjuntos.Find(c => c.index == vertice);
